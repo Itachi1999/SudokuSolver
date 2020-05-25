@@ -47,6 +47,33 @@ void printPuzzle(int **puzzle){
     }
 }
 
+
+Square*** setUpPuzzle(int **puzzle){
+    Square ***sudoku;
+    int i = 0, j = 0;
+
+    for(i = 0; i < 9; i++){
+        sudoku[i] = (Square**)malloc(sizeof(Square**) * 9);
+        for(j = 0; j < 9; j++){
+            sudoku[i][j] = (Square*)malloc(sizeof(Square*) * 9);
+            
+            
+            sudoku[i][j] -> number = puzzle[i][j];
+            sudoku[i][j] -> row = i;
+            sudoku[i][j] -> column = j;
+            
+            if(puzzle[i][j]){
+                sudoku[i][j] -> code = IMPOSSIBLE;
+            }
+            else
+            {
+                sudoku[i][j] -> code = 0x0;
+            }
+            
+        }
+    }
+}
+
 // bool solve(int i, int j, int n, int **puzzle){
 //     int x = 0, y = 0, x_box = 0, y_box = 0;
 
