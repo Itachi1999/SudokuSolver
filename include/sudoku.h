@@ -20,11 +20,11 @@ typedef struct Box
 typedef struct Square{
     int number;
 
-    char code; //The possible numbers in which the 1 means not posiible, 0 means posbbile 
+    int possible[9]; //The possible numbers in which the 1 means not posiible, 0 means posbbile 
     //for the particular position
-    // 000000000
-    // 987654321, here all numbers are possilbe in the code 000000000
-
+    // 0 0 0 0 0 0 0 0 0     
+    // 9 8 7 6 5 4 3 2 1 (indices), here all numbers are possilbe in the code 000000000
+    int solvable; //no of possible numbers to put in the cell
     int row;
     int column;
     Box *box;

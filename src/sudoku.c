@@ -1,6 +1,5 @@
 #include "sudoku.h"
 
-char IMPOSSIBLE = 0x1FF;
 int ROW_NUMS = 9;
 int COLUMN_NUMS = 9;
 
