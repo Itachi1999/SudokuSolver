@@ -46,3 +46,56 @@ void printPuzzle(int **puzzle){
         }
     }
 }
+
+// bool solve(int i, int j, int n, int **puzzle){
+//     int x = 0, y = 0, x_box = 0, y_box = 0;
+
+//     //row checking
+//     for(x = 0; x < 9; x++){
+//         if(puzzle[i][x] == n){
+//             return false;
+//         }
+//     }
+
+//     for(x = 0; x < 9; x++){
+//         if(puzzle[x][j] == n){
+//             return false;
+//         }
+//     }
+
+//     x_box = (i / 3) * 3;
+//     y_box = (j / 3) * 3;
+
+//     for(x = 0; x < 3; x++){
+//         for(y = 0; y < 3; y++){
+//             if(puzzle[x_box + i][y_box + j] == n){
+//                 return false;
+//             }
+//         }
+//     } 
+
+//     return true;
+// }
+
+// void solvePuzzle(int** puzzle){
+//     int i = 0, j = 0, n = 0;
+//     printf("Solving");
+//     for(i = 0; i < 9; i++){
+//         printf("Solving i: %d ", i);
+//         for (j = 0; j < 9; j++){
+//             printf("Solving j: %d ", j);
+//             if(puzzle[i][j] == 0){
+//                 for(n = 1; n < 10; n++){
+//                     if(solve(i, j, n, puzzle)){
+//                         puzzle[i][j] = n;
+//                         printf("Solving n: %d ", n);
+//                         solvePuzzle(puzzle);
+//                         puzzle[i][j] = 0;
+//                     }
+//                 }
+//                 return; 
+//             }
+//         }
+//     }
+//    // return;
+// }
