@@ -11,6 +11,10 @@ extern int COLUMN_NUMS;
 
 typedef struct Box
 {
+    struct Square **squares; //the array of squares in the box
+    int solvable; // the box also needs a solvable
+    int numbers; //The numbers in the box
+    int possible[9]; //There are 9 numbers in the box so it also has possible array
     struct Box *next;
 } Box;
 
@@ -36,5 +40,9 @@ void printPuzzle(Square***);
 void checkPuzzle(Square***);
 int solveSquare(Square *square);
 int updateSudoku(Square ***sudoku, int row, int column);
+
+//Box Functions
+Box **createBoxes();
+
 
 #endif
