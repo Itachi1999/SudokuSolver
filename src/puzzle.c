@@ -1,6 +1,46 @@
 #include "sudoku.h"
 
 
+int updateSudoku(Square ***sudoku, int row, int column){
+    int i = 0;
+    int number = sudoku[row][column] -> number;
+
+    for (i = 0; i < ROW_NUMS; i++)
+    {
+        if (sudoku[i][column] -> possible[number - 1] == 0)
+        {
+            sudoku[i][column] -> solvable--;
+        }
+        sudoku[i][column] -> possible[number - 1] = 1;
+    }
+    
+    for (i = 0; i < COLUMN_NUMS; i++)
+    {
+        if (sudoku[row][i] -> possible[number - 1] == 0)
+        {
+            sudoku[row][i] -> solvable--;
+        }
+        sudoku[row][i] -> possible[number - 1] = 1;
+    }
+
+    return 0;
+}
+
+void checkPuzzle(Square ***sudoku){
+    int i = 0, j = 0;
+    for (i = 0; i < ROW_NUMS; i++)
+    {
+        for (j = 0; j < COLUMN_NUMS; j++)
+        {
+            if (sudoku[i][j] -> solvable == 1)
+            {
+                solveSquare(sudoku[i][j]);
+                updateSudoku(sudoku, i, j);
+            }
+        }
+    }
+}
+
 int **createPuzzle(){
     int **puzzle; 
     int i = 0, j = 0;
@@ -29,13 +69,13 @@ int **createPuzzle(){
     return puzzle;
 }
 
-void printPuzzle(int **puzzle){
+void printPuzzle(Square ***puzzle){
     int i, j = 0;
     printf("--------------------------\n");
     for(i = 0; i < 9; i++){
         printf("| ");
         for(j = 0; j < 9; j++){
-            printf("%d ", puzzle[i][j]);
+            printf("%d ", puzzle[i][j] -> number);
             if((j + 1) % 3 == 0){
                 printf("| ");
             }
@@ -50,25 +90,43 @@ void printPuzzle(int **puzzle){
 
 Square*** setUpPuzzle(int **puzzle){
     Square ***sudoku;
+    sudoku = (Square***)malloc(sizeof(Square**) * 9);
     int i = 0, j = 0, k = 0;
 
-    for(i = 0; i < 9; i++){
+    for(i = 0; i < ROW_NUMS; i++){
         sudoku[i] = (Square**)malloc(sizeof(Square*) * 9);
-        for(j = 0; j < 9; j++){
+        for(j = 0; j < COLUMN_NUMS; j++){
             sudoku[i][j] = (Square*)malloc(sizeof(Square));
             
             
             sudoku[i][j] -> number = puzzle[i][j];
             sudoku[i][j] -> row = i;
             sudoku[i][j] -> column = j;
+            sudoku[i][j] -> solvable = 9;
             
-            while(k < 9){
+            while(k < ROW_NUMS){
                 sudoku[i][j] -> possible[k] = 0;
                 k++;
             }
         }
     }
+
+    for (i = 0; i < ROW_NUMS; i++)
+    {
+        for (j = 0; j < COLUMN_NUMS; j++)
+        {
+            if(sudoku[i][j] -> number != 0){
+                sudoku[i][j] ->solvable = 0;
+                updateSudoku(sudoku, i , j);
+                UNSOLVED--;
+            }
+        }
+    }
+    return sudoku;  
 }
+
+
+
 
 // bool solve(int i, int j, int n, int **puzzle){
 //     int x = 0, y = 0, x_box = 0, y_box = 0;

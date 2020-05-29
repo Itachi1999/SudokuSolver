@@ -5,9 +5,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-
-
-extern char IMPOSSIBLE; //111111111, if the code is 0x1FF, no another number is possible
+extern int UNSOLVED;
 extern int ROW_NUMS;
 extern int COLUMN_NUMS;
 
@@ -34,7 +32,9 @@ int **createPuzzle();
 Square ***setUpPuzzle(int**); 
 //void solvePuzzle(int **puzzle);
 //bool solve(int, int, int, int**);
-void printPuzzle(int**);
-
+void printPuzzle(Square***);
+void checkPuzzle(Square***);
+int solveSquare(Square *square);
+int updateSudoku(Square ***sudoku, int row, int column);
 
 #endif
