@@ -36,5 +36,5 @@ int updateBoxes(Square ***sudoku, int row, int column){
         }
         
     }
-    
+    return 0;
 }
