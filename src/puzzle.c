@@ -26,7 +26,7 @@ int updateSudoku(Square ***sudoku, int row, int column){
     return 0;
 }
 
-void checkPuzzle(Square ***sudoku){
+int checkPuzzle(Square ***sudoku, Box **boxes){
     int i = 0, j = 0;
     for (i = 0; i < ROW_NUMS; i++)
     {
@@ -37,9 +37,14 @@ void checkPuzzle(Square ***sudoku){
                 solveSquare(sudoku[i][j]);
                 updateSudoku(sudoku, i, j);
                 updateBoxes(sudoku, i , j);
+
+                return 1; // Idication that it solves something
             }
         }
     }
+
+    //if the above method doesn't aolve anything then goes to this
+    return boxSingles(sudoku, boxes);
 }
 
 int **createPuzzle(){
@@ -88,8 +93,17 @@ void printPuzzle(Square ***puzzle){
     }
 }
 
+Sudoku *createSudoku(Square ***squares, Box **boxes){
+    Sudoku *sudoku;
+    sudoku = (Sudoku *)malloc(sizeof(Sudoku));
 
-Square*** setUpPuzzle(int **puzzle){
+    sudoku -> squares = squares;
+    sudoku->boxes = boxes;
+
+    return sudoku;
+}
+
+Sudoku *setUpPuzzle(int **puzzle){
     Square ***sudoku;
     Box **boxes;
     sudoku = (Square***)malloc(sizeof(Square**) * 9);
@@ -130,7 +144,7 @@ Square*** setUpPuzzle(int **puzzle){
             }
         }
     }
-    return sudoku;  
+    return createSudoku(sudoku, boxes);  
 }
 
 

@@ -1,5 +1,49 @@
 #include "sudoku.h"
 
+
+int boxSingles(Square ***sudoku, Box **boxes){
+    int i = 0, j = 0, x = 0;
+    int temp = 0, count = 0;
+
+    //loop through all boxes
+    for (i = 0; i < 9; i++)
+    {
+        //loop through all numbers possible
+        for (j = 0; j < 9; j++)
+        {
+            count = 0;
+            //loop through all sqaures
+            for(x = 0; x < 9; x++){
+                if(boxes[i] -> squares[x] ->number != 0)
+                    continue;
+
+                if(boxes[i] -> squares[x] -> possible[j] == 0){
+                    count++;
+                    temp = x;
+                }
+
+                if(count == 2)
+                    break;
+            }
+
+            if(count == 1){
+                boxes[i] -> squares[temp] -> number = j + 1;
+                UNSOLVED--;
+                boxes[i] -> squares[temp] -> solvable = 0;
+
+                updateSudoku(sudoku, boxes[i] -> squares[temp] -> row, boxes[i] -> squares[temp] -> column);
+                //Don't need the updateboxes function because the number is not possibl in other boxes
+                //updateBoxes(sudoku, boxes[i] -> squares[temp] -> row, boxes[i] -> squares[temp] -> column);
+                
+                //if it solves something
+                return 1;
+            }
+        }   
+    }
+    //if it doesn't solve anything
+    return 0;
+}
+
 Box **createBoxes(){
     Box **boxes;
     int i = 0, j = 0;
