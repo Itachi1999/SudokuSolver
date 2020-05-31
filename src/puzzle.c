@@ -44,7 +44,10 @@ int checkPuzzle(Square ***sudoku, Box **boxes){
     }
 
     //if the above method doesn't aolve anything then goes to this
-    return boxSingles(sudoku, boxes);
+    if(boxSingles(sudoku, boxes))
+        return 1;
+    
+    return checkRows(sudoku);
 }
 
 int **createPuzzle(){

@@ -23,9 +23,13 @@ int main(){
         progress = checkPuzzle(sudoku -> squares, sudoku -> boxes);
         if(progress == 0)
         {
-            printf("Can't solve the puzzle\n");
+            printf("Can't solve the puzzle\n\n");
             break;
         }
+    }
+
+    if(UNSOLVED == 0){
+        printf("YAAY! SOLVED THE PUZZLE\n\n");
     }
     printPuzzle(sudoku -> squares);
     free(puzzle);

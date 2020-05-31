@@ -44,6 +44,7 @@ Sudoku *createSudoku(Square ***, Box **);
 //bool solve(int, int, int, int**);
 void printPuzzle(Square***);
 int checkPuzzle(Square***, Box **);
+int checkRows(Square ***);
 int boxSingles(Square***, Box **);
 int solveSquare(Square *);
 int updateSudoku(Square ***, int, int);
